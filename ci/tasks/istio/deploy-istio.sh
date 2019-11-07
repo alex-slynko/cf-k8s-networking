@@ -22,7 +22,8 @@ function install_istio() {
     sleep 5
 
     # Install Istio
-    helm template install/kubernetes/helm/istio --name istio --namespace istio-system | kubectl apply -f -
+    istio_value_overrides="${workspace}/cf-k8s-networking/ci/istio-config/enable-sidecar-access-logs.yml"
+    helm template install/kubernetes/helm/istio --name istio --namespace istio-system --values ${istio_value_overrides} | kubectl apply -f -
   popd
 }
 
